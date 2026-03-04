@@ -5,7 +5,14 @@ import { Button } from "@/components/ui/button";
 import { useConversation } from "@elevenlabs/react";
 
 export function Hero() {
-  const conversation = useConversation();
+  const conversation = useConversation({
+    onConnect: () => console.log("ElevenLabs connected"),
+    onDisconnect: () => console.log("ElevenLabs disconnected"),
+    onError: (error) => {
+      console.error("ElevenLabs error:", error);
+      alert(`Assistant error: ${typeof error === "string" ? error : JSON.stringify(error)}`);
+    },
+  });
   return (
     <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
       {/* Background decoration */}
@@ -38,14 +45,19 @@ export function Hero() {
                       await conversation.endSession();
                     } else {
                       try {
-                        await navigator.mediaDevices.getUserMedia({ audio: true });
+                        const agentId = process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID;
+                        if (!agentId || agentId === "PASTE_YOUR_AGENT_ID_HERE") {
+                          throw new Error("Missing ElevenLabs Agent ID. Please check your .env.local file.");
+                        }
+
                         await conversation.startSession({
-                          agentId: process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID || "PASTE_YOUR_AGENT_ID_HERE",
-                          connectionType: "webrtc",
+                          agentId: agentId,
+                          connectionType: "websocket",
                         });
-                      } catch (error) {
+                      } catch (error: any) {
                         console.error("Failed to start conversation:", error);
-                        alert("Could not access microphone or start the assistant.");
+                        const msg = error?.message || error?.name || JSON.stringify(error) || "Could not access microphone or start the assistant.";
+                        alert(`Error: ${msg}`);
                       }
                     }
                   }}
