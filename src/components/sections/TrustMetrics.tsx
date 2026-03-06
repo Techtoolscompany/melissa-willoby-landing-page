@@ -3,12 +3,12 @@
 import { motion } from "framer-motion";
 
 const repeatedMetrics = [
-  "15+ Years of Excellence", "★", 
+  "25+ Years of Experience", "★", 
   "2,500+ Funded Loans", "★", 
   "99% Client Satisfaction", "★", 
   "NMLS ID 577087", "★",
   "Top 1% Originator", "★",
-  "15+ Years of Excellence", "★", 
+  "25+ Years of Experience", "★", 
   "2,500+ Funded Loans", "★", 
   "99% Client Satisfaction", "★", 
   "NMLS ID 577087", "★",

@@ -23,6 +23,11 @@ const programs = [
     description: "Tailored luxury financing solutions for properties exceeding standard conforming loan limits in your area.",
     image: "/jumbo_loan_concept_1772641749311.png"
   },
+  {
+    title: "Nontraditional Mortgages",
+    description: "We have nontraditional mortgages too. Perfect for the self-employed, special investors, and those with limited income.",
+    image: "/conventional_loan_concept_1772641708600.png"
+  },
 ];
 
 export function Programs() {
